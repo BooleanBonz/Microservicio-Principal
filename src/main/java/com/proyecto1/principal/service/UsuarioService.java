@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto1.principal.model.Usuario;
+import com.proyecto1.principal.model.dto.UsuarioDto;
 import com.proyecto1.principal.model.entity.UsuarioEntity;
 import com.proyecto1.principal.repository.UsuarioRepository;
 
@@ -45,6 +46,23 @@ public class UsuarioService {
                     usuario.getApellidos(),
                     usuario.getCorreo(),
                     usuario.getContrasena()
+                );
+                return user;
+            }
+            return null;
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    public UsuarioDto obtenerUsuarioDto(int idUsuario){
+        try{
+            UsuarioEntity usuario = usuarioRepository.findByIdUsuario(idUsuario);
+            if (usuario != null){
+                UsuarioDto user = new UsuarioDto(
+                    usuario.getNombre(),
+                    usuario.getApellidos(),
+                    usuario.getCorreo()
                 );
                 return user;
             }
