@@ -1,5 +1,7 @@
 package com.proyecto1.principal.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class UsuarioService {
 
         }
 
-    public Usuario obteneUsuario(String correo){
+    public Usuario obtenerUsuario(String correo){
         try{
             UsuarioEntity usuario = usuarioRepository.findByCorreo(correo);
             if (usuario != null){
@@ -51,6 +53,8 @@ public class UsuarioService {
             }
             return null;
         }catch (Exception e) {
+            e.printStackTrace();
+            // para ver el error en consola
             return null;
         }
     }
@@ -71,6 +75,11 @@ public class UsuarioService {
             return null;
         }
     }
+
+    public List<UsuarioEntity> obtenerTodosLosUsuarios() {
+    return usuarioRepository.findAll();
+    }
+
 
 }
 

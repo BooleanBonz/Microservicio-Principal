@@ -1,11 +1,14 @@
 package com.proyecto1.principal.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto1.principal.model.Usuario;
 import com.proyecto1.principal.model.dto.UsuarioDto;
+import com.proyecto1.principal.model.entity.UsuarioEntity;
 import com.proyecto1.principal.service.UsuarioService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,19 +33,33 @@ public class UsuarioController {
 
     @GetMapping("/obtenerUsuario/{correo}")
     public ResponseEntity<Usuario> obetenerUsuario(@PathVariable String correo){
-        Usuario usuario = usuarioService.obteneUsuario(correo);
+        Usuario usuario = usuarioService.obtenerUsuario(correo);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
         }
         return ResponseEntity.notFound().build();
     }
 
+    //@GetMapping("/obtenerUsuario/{idUsuario}")
+    //public ResponseEntity<UsuarioDto> obtenerUsuarioDto(@PathVariable int idUsuario){
+       //if (usuarioService.obtenerUsuarioDto(idUsuario) != null) {
+            //return ResponseEntity.ok(usuarioService.obtenerUsuarioDto(idUsuario));
+        //}
+        //return ResponseEntity.notFound().build();
+    //}
+
     @GetMapping("/obtenerUsuario/{idUsuario}")
-    public ResponseEntity<UsuarioDto> obtenerUsuarioDto(@PathVariable int idUsuario){
+    public ResponseEntity<UsuarioDto> obtenerUsuarioDto(@PathVariable int idUsuario) {
         if (usuarioService.obtenerUsuarioDto(idUsuario) != null) {
             return ResponseEntity.ok(usuarioService.obtenerUsuarioDto(idUsuario));
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/listarUsuarios")
+    public ResponseEntity<List<UsuarioEntity>> listarUsuarios() {
+    return ResponseEntity.ok(usuarioService.obtenerTodosLosUsuarios());
+    }
+
     
 }
