@@ -31,8 +31,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.crearUsuario(usuario));
     }
 
-    @GetMapping("/obtenerUsuario/{correo}")
-    public ResponseEntity<Usuario> obetenerUsuario(@PathVariable String correo){
+    @GetMapping("/obtenerUsuario/correo/{correo}")
+    public ResponseEntity<Usuario> obtenerUsuario(@PathVariable String correo){
         Usuario usuario = usuarioService.obtenerUsuario(correo);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
@@ -40,15 +40,7 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    //@GetMapping("/obtenerUsuario/{idUsuario}")
-    //public ResponseEntity<UsuarioDto> obtenerUsuarioDto(@PathVariable int idUsuario){
-       //if (usuarioService.obtenerUsuarioDto(idUsuario) != null) {
-            //return ResponseEntity.ok(usuarioService.obtenerUsuarioDto(idUsuario));
-        //}
-        //return ResponseEntity.notFound().build();
-    //}
-
-    @GetMapping("/obtenerUsuario/{idUsuario}")
+    @GetMapping("/obtenerUsuario/id/{idUsuario}")
     public ResponseEntity<UsuarioDto> obtenerUsuarioDto(@PathVariable int idUsuario) {
         if (usuarioService.obtenerUsuarioDto(idUsuario) != null) {
             return ResponseEntity.ok(usuarioService.obtenerUsuarioDto(idUsuario));
