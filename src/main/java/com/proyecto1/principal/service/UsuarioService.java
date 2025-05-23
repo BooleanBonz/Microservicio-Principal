@@ -37,7 +37,18 @@ public class UsuarioService {
         }
 
         }
-
+    public boolean eliminarUsuario(int idUsuario){
+        try{
+            UsuarioEntity usuario = usuarioRepository.findByIdUsuario(idUsuario);
+            if (usuario != null){
+                usuarioRepository.delete(usuario);
+                return true;
+            }
+            return false;
+        }catch (Exception e) {
+            return false;
+        }
+    }
     public Usuario obtenerUsuario(String correo){
         try{
             UsuarioEntity usuario = usuarioRepository.findByCorreo(correo);
@@ -58,6 +69,28 @@ public class UsuarioService {
             return null;
         }
     }
+
+    public String modificarUsuario(Usuario user) {
+        try {
+        UsuarioEntity usuarioExistente = usuarioRepository.findById(user.getIdUsuario()).orElse(null);
+        if (usuarioExistente != null) {
+            usuarioExistente.setNombre(user.getNombre());
+            usuarioExistente.setApellidos(user.getApellidos());
+            usuarioExistente.setCorreo(user.getCorreo());
+            usuarioExistente.setContrasena(user.getContrasena());
+
+            usuarioRepository.save(usuarioExistente);
+            return "Usuario modificado correctamente";
+        } else {
+            return "Usuario no encontrado con ID: " + user.getIdUsuario();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "Error al modificar el usuario: " + e.getMessage();
+    }
+    }
+
+
 
     public UsuarioDto obtenerUsuarioDto(int idUsuario){
         try{

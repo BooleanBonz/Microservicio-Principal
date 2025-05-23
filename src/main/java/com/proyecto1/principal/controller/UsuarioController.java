@@ -48,6 +48,20 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/eliminarUsuario/id/{idUsuario}")
+    public ResponseEntity<String> eliminarUsuario(@PathVariable int idUsuario) {
+        if (usuarioService.eliminarUsuario(idUsuario)) {
+            return ResponseEntity.ok("Usuario eliminado correctamente");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/modificarUsuario")
+    public ResponseEntity<String> modificarUsuario(@RequestBody Usuario usuario) {
+    String respuesta = usuarioService.modificarUsuario(usuario);
+    return ResponseEntity.ok(respuesta);
+    }
+
     @GetMapping("/listarUsuarios")
     public ResponseEntity<List<UsuarioEntity>> listarUsuarios() {
     return ResponseEntity.ok(usuarioService.obtenerTodosLosUsuarios());
