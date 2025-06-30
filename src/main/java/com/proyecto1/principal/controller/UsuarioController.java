@@ -12,6 +12,7 @@ import com.proyecto1.principal.model.entity.UsuarioEntity;
 import com.proyecto1.principal.service.UsuarioService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -27,7 +28,7 @@ public class UsuarioController {
     // responseEntity responde segun la accion o resultado
     // 404 no se encuentra el recurso
     // 200 significa ok
-    public ResponseEntity<String> obtenerUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario){
         return ResponseEntity.ok(usuarioService.crearUsuario(usuario));
     }
 
@@ -48,7 +49,7 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/eliminarUsuario/id/{idUsuario}")
+    @DeleteMapping("/eliminarUsuario/id/{idUsuario}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable int idUsuario) {
         if (usuarioService.eliminarUsuario(idUsuario)) {
             return ResponseEntity.ok("Usuario eliminado correctamente");
